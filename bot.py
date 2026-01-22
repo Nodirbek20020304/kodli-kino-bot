@@ -4,7 +4,6 @@ import json
 import os
 from datetime import datetime, timedelta
 from threading import Thread
-from flask import Flask
 
 # ================== CONFIG ==================
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -15,19 +14,6 @@ USERS_FILE = "users.json"
 ADMINS_FILE = "admins.json"
 
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML")
-
-# ================== FLASK (Render uchun) ==================
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Bot is running"
-
-def run_web():
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
-
-Thread(target=run_web).start()
 
 # ================== FILE HELPERS ==================
 def load_json(file, default):
